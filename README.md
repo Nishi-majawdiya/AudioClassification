@@ -137,16 +137,23 @@ dotnet ef database update
 
 ## 🖼️ Screenshots
 
-Screenshots are available in the **Screenshots/** folder:
+### 🔐 Login
+![Login](Screenshots/Login.PNG)
 
-* 📊 Dashboard.PNG
-* 📁 GenerateCSV.PNG
-* 🔐 Login.PNG
-* 🧠 ModelTraining.PNG
-* 📤 Output.PNG
-* 📝 Register.PNG
+### 📝 Register
+![Register](Screenshots/Register.PNG)
 
----
+### 📁 Generate CSV
+![Generate CSV](Screenshots/GenerateCSV.PNG)
+
+### 🧠 Model Training
+![Model Training](Screenshots/ModelTraining.PNG)
+
+### 📊 Dashboard
+![Dashboard](Screenshots/Dashboard.PNG)
+
+### 📤 Output
+![Output](Screenshots/Output.PNG)
 
 ## 📈 Output Example
 
