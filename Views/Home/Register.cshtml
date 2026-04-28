@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Register";
+    ViewData["Page"] = "register";
+}
+
+<div class="auth-shell">
+    <a class="back-link" href="/">← Back to home</a>
+    <section class="auth-card">
+        <p class="eyebrow">Get started</p>
+        <h1>Register</h1>
+        <p class="auth-copy">Create a simple account to access protected model actions.</p>
+
+        <form id="register-form" class="auth-form">
+            <label>
+                <span>Username</span>
+                <input id="register-username" name="username" type="text" placeholder="Choose username" required />
+            </label>
+            <label>
+                <span>Password</span>
+                <input id="register-password" name="password" type="password" placeholder="Choose password" required />
+            </label>
+            <button class="button button-primary" type="submit">Register</button>
+        </form>
+
+        <p id="register-message" class="status-message" aria-live="polite"></p>
+
+        <p class="auth-switch">
+            Already registered?
+            <a href="/login">Login here</a>
+        </p>
+    </section>
+</div>

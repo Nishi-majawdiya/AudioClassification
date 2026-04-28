@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["Page"] = "dashboard";
+}
+
+<div class="site-shell">
+    <header class="topbar">
+        <a class="brand" href="/">
+            <span class="brand-mark">AC</span>
+            <span>Audio Classification</span>
+        </a>
+        <div class="nav-links">
+            <span id="session-user" class="session-user"></span>
+            <button id="logout-button" class="button button-secondary button-small" type="button">Logout</button>
+        </div>
+    </header>
+
+    <main class="dashboard-layout">
+        <section class="panel panel-wide">
+            <p class="eyebrow">Authenticated workspace</p>
+            <h1>Prediction dashboard</h1>
+            <p class="panel-copy">
+                Upload a `.wav` audio file to classify it with your trained model, or run the helper endpoints below.
+            </p>
+
+            <form id="predict-form" class="upload-form">
+                <label class="file-field">
+                    <span>Audio file</span>
+                    <input id="audio-file" name="file" type="file" accept=".wav,audio/wav" required />
+                </label>
+                <button class="button button-primary" type="submit">Predict audio</button>
+            </form>
+
+            <div id="prediction-result" class="result-box">
+                <strong>Prediction</strong>
+                <p>Select a file and run prediction.</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Model actions</h2>
+            <div class="action-grid">
+                <button class="button button-secondary api-action" data-endpoint="/api/audio/generate-csv" data-label="Generate CSV" type="button">Generate CSV</button>
+                <button class="button button-secondary api-action" data-endpoint="/api/audio/train" data-label="Train Model" type="button">Train Model</button>
+                <button class="button button-secondary api-action" data-endpoint="/api/audio/predict" data-label="Quick Predict" type="button">Quick Predict</button>
+            </div>
+
+            <div id="action-result" class="result-box result-box-compact">
+                <strong>Response</strong>
+                <pre>Select an action to see the API response.</pre>
+            </div>
+        </section>
+    </main>
+</div>

@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Login";
+    ViewData["Page"] = "login";
+}
+
+<div class="auth-shell">
+    <a class="back-link" href="/">← Back to home</a>
+    <section class="auth-card">
+        <p class="eyebrow">Welcome back</p>
+        <h1>Login</h1>
+        <p class="auth-copy">Use your username and password to access the audio dashboard.</p>
+
+        <form id="login-form" class="auth-form">
+            <label>
+                <span>Username</span>
+                <input id="login-username" name="username" type="text" placeholder="Enter username" required />
+            </label>
+            <label>
+                <span>Password</span>
+                <input id="login-password" name="password" type="password" placeholder="Enter password" required />
+            </label>
+            <button class="button button-primary" type="submit">Login</button>
+        </form>
+
+        <p id="login-message" class="status-message" aria-live="polite"></p>
+
+        <p class="auth-switch">
+            Need an account?
+            <a href="/register">Register here</a>
+        </p>
+    </section>
+</div>
