@@ -5,21 +5,51 @@
 
 <div class="auth-shell">
     <a class="back-link" href="/">← Back to home</a>
+
     <section class="auth-card">
         <p class="eyebrow">Get started</p>
         <h1>Register</h1>
         <p class="auth-copy">Create a simple account to access protected model actions.</p>
 
         <form id="register-form" class="auth-form">
+
+            <!-- Username -->
             <label>
                 <span>Username</span>
-                <input id="register-username" name="username" type="text" placeholder="Choose username" required />
+                <input id="register-username"
+                       name="username"
+                       type="text"
+                       placeholder="Choose username"
+                       required
+                       minlength="3"
+                       maxlength="20" />
             </label>
+
+            <!-- Email -->
+            <label>
+                <span>Email</span>
+                <input id="register-email"
+                       name="email"
+                       type="email"
+                       placeholder="Enter your email"
+                       required />
+            </label>
+
+            <!-- Password -->
             <label>
                 <span>Password</span>
-                <input id="register-password" name="password" type="password" placeholder="Choose password" required />
+                <input id="register-password"
+                       name="password"
+                       type="password"
+                       placeholder="Min 6 chars, include number & special char"
+                       required
+                       minlength="6"
+                       pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@@$!%*?&]).+$" />
             </label>
-            <button class="button button-primary" type="submit">Register</button>
+
+            <button class="button button-primary" type="submit">
+                Register
+            </button>
         </form>
 
         <p id="register-message" class="status-message" aria-live="polite"></p>

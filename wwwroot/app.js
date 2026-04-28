@@ -61,6 +61,7 @@ async function handleRegister() {
 
         const payload = {
             username: document.getElementById("register-username").value.trim(),
+            email: document.getElementById("register-email").value.trim(), // 🔥 ADD THIS
             password: document.getElementById("register-password").value
         };
 

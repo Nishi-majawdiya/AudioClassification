@@ -2,6 +2,7 @@
 using AudioClassification.Data;
 using AudioClassification.Models;
 using AudioClassification.Services;
+using BCrypt.Net;
 
 namespace AudioClassification.Controllers
 {
@@ -19,24 +20,29 @@ namespace AudioClassification.Controllers
         }
 
         // 🔹 Register
+
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
-                return BadRequest("Username and password are required.");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            var username = request.Username.Trim();
+            if (_context.Users.Any(u => u.Username == request.Username))
+                return BadRequest("Username already exists");
 
-            var exists = _context.Users.Any(u => u.Username == username && !u.IsDeleted);
-            if (exists)
-                return Conflict("Username already exists.");
+            if (_context.Users.Any(u => u.Email == request.Email))
+                return BadRequest("Email already exists");
+
+            // 🔐 HASH PASSWORD
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             var user = new User
             {
-                Username = username,
-                Password = request.Password,
+                Username = request.Username,
+                Email = request.Email,
+                Password = hashedPassword,
 
-                CreatedBy = username,
+                CreatedBy = request.Username,
                 CreatedDate = DateTime.UtcNow,
                 IsDeleted = false
             };
@@ -44,28 +50,29 @@ namespace AudioClassification.Controllers
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return Ok("User registered");
+            return Ok("User registered successfully");
         }
 
         // 🔹 Login
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
-                return BadRequest("Username and password are required.");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            var username = request.Username.Trim();
+            var user = _context.Users.FirstOrDefault(u =>
+                u.Username == request.Username && !u.IsDeleted);
 
-            var existing = _context.Users
-                .FirstOrDefault(u =>
-                    u.Username == username &&
-                    u.Password == request.Password &&
-                    !u.IsDeleted);
+            if (user == null)
+                return Unauthorized("Invalid username or password");
 
-            if (existing == null)
-                return Unauthorized("Invalid credentials");
+            // 🔐 VERIFY HASH
+            bool isValid = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
 
-            var token = _jwt.GenerateToken(existing.Username);
+            if (!isValid)
+                return Unauthorized("Invalid username or password");
+
+            var token = _jwt.GenerateToken(user.Username);
 
             return Ok(new { token });
         }
